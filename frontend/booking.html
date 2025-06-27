@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking - Luxe Glow Spa</title>
+<link href="booking.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Booking Header with Home Button -->
+<header class="booking-header">
+<a class="home-btn" href="spa Homepage.html">Home</a>
+</header>
+<div class="booking-system" id="booking-system">
+<!-- Progress Bar -->
+<div class="progress-bar">
+<div class="progress-step" data-step="1">
+<div class="step-number">1</div>
+<div class="step-label">Basic Info</div>
+</div>
+<div class="progress-step" data-step="2">
+<div class="step-number">2</div>
+<div class="step-label">Select Services</div>
+</div>
+<div class="progress-step" data-step="3">
+<div class="step-number">3</div>
+<div class="step-label">Summary</div>
+</div>
+<div class="progress-step" data-step="4">
+<div class="step-number">4</div>
+<div class="step-label">Confirm</div>
+</div>
+</div>
+<!-- Step 1: Basic Information -->
+<div class="booking-page" id="booking-page-1">
+<h2>Basic Information</h2>
+<div class="form-group">
+<label for="name">NAME</label>
+<input id="name" name="name" type="text"/>
+</div>
+<div class="form-group">
+<label for="phone">PHONE NUMBER</label>
+<input id="phone" name="phone" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">EMAIL</label>
+<input id="email" name="email" type="text"/>
+</div>
+<div class="form-group">
+<label for="date">CHOOSE A DATE</label>
+<select id="date" name="date"><option value="">Select a date</option><option value="2025-05-06">2025-05-06</option><option value="2025-05-07">2025-05-07</option><option value="2025-05-08">2025-05-08</option><option value="2025-05-09">2025-05-09</option><option value="2025-05-10">2025-05-10</option><option value="2025-05-11">2025-05-11</option><option value="2025-05-12">2025-05-12</option><option value="2025-05-13">2025-05-13</option><option value="2025-05-14">2025-05-14</option><option value="2025-05-15">2025-05-15</option><option value="2025-05-16">2025-05-16</option><option value="2025-05-17">2025-05-17</option><option value="2025-05-18">2025-05-18</option><option value="2025-05-19">2025-05-19</option><option value="2025-05-20">2025-05-20</option><option value="2025-05-21">2025-05-21</option><option value="2025-05-22">2025-05-22</option><option value="2025-05-23">2025-05-23</option><option value="2025-05-24">2025-05-24</option><option value="2025-05-25">2025-05-25</option><option value="2025-05-26">2025-05-26</option><option value="2025-05-27">2025-05-27</option><option value="2025-05-28">2025-05-28</option><option value="2025-05-29">2025-05-29</option><option value="2025-05-30">2025-05-30</option><option value="2025-05-31">2025-05-31</option><option value="2025-06-01">2025-06-01</option><option value="2025-06-02">2025-06-02</option><option value="2025-06-03">2025-06-03</option><option value="2025-06-04">2025-06-04</option></select>
+</div>
+<div class="form-group">
+<label for="time-range">CHOOSE A TIME RANGE</label>
+<select id="time-range" name="time-range"><option value="">Select a time</option><option value="09:00 AM">09:00 AM</option><option value="10:00 AM">10:00 AM</option><option value="11:00 AM">11:00 AM</option><option value="12:00 PM">12:00 PM</option><option value="01:00 PM">01:00 PM</option><option value="02:00 PM">02:00 PM</option><option value="03:00 PM">03:00 PM</option><option value="04:00 PM">04:00 PM</option><option value="05:00 PM">05:00 PM</option><option value="06:00 PM">06:00 PM</option></select>
+</div>
+<div class="booking-buttons">
+<button class="next-btn" id="to-step-2">Next</button>
+</div>
+</div>
+<!-- Step 2: Service Selection (Card Layout) -->
+<div class="booking-page" id="booking-page-2" style="display: none;">
+<h2>Select Your Services</h2>
+<div class="service-categories">
+<!-- Massages Category -->
+<div class="service-category">
+<h3>Massages</h3>
+<div class="service-card-container">
+<!-- Swedish Massage Card -->
+<div class="service-option-card" data-service="Swedish Massage">
+<h4>Swedish Massage</h4>
+<p class="service-description">
+                  Experience this relaxation massage with our trained professionals. This treatment combines Swedish techniques with aromatherapy.
+                </p>
+          `;
+        }
+  
+        // Update summary list in Step 3 without descriptions
+        function updateServiceSummary() {
+          const summaryContainer = document.getElementById("summary-services-list");
+          summaryContainer.innerHTML = "";
+          if (selectedServices.length === 0) {
+            summaryContainer.innerHTML = "<p>No services selected.</p>";
+          } else {
+            let totalPrice = 0;
+            selectedServices.forEach(service => {
+              totalPrice += parseInt(service.price);
+              const div = document.createElement("div");
+              div.className = "summary-service-item";
+              div.innerHTML = `<span class="summary-service-name">${service.name}</span> - <span class="summary-service-duration">${service.duration}</span> - <span class="summary-service-price">$${service.price}</span>`;
+              summaryContainer.appendChild(div);
+            });
+            // Append total price row
+            const totalDiv = document.createElement("div");
+            totalDiv.className = "total-row";
+            totalDiv.innerHTML = `<span class="total-label">Total</span> <span class="total-price">$${totalPrice}</span>`;
+            summaryContainer.appendChild(totalDiv);
+          }
+        }
+  
+        // Navigation buttons events
+        document.getElementById("to-step-2").addEventListener("click", function () {
+          currentStep = 2;
+          showStep(currentStep);
+        });
+  
+        document.getElementById("back-to-step-1").addEventListener("click", function () {
+          currentStep = 1;
+          showStep(currentStep);
+        });
+  
+        document.getElementById("to-step-3").addEventListener("click", function () {
+          if (selectedServices.length === 0) {
+            alert("Please select at least one service before proceeding.");
+            return;
+          }
+          currentStep = 3;
+          showStep(currentStep);
+        });
+  
+        document.getElementById("back-to-step-2").addEventListener("click", function () {
+          currentStep = 2;
+          showStep(currentStep);
+        });
+  
+        document.getElementById("to-step-4").addEventListener("click", function () {
+          currentStep = 4;
+          showStep(currentStep);
+        });
+  
+        document.getElementById("back-to-step-3").addEventListener("click", function () {
+          currentStep = 3;
+          showStep(currentStep);
+        });
+  
+        // Service selection on Step 2 (Card Layout)
+        const selectButtons = document.querySelectorAll(".select-service-btn");
+        selectButtons.forEach(btn => {
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const card = this.parentElement;
+            const serviceName = card.getAttribute("data-service");
+            const description = card.querySelector(".service-description").textContent.trim();
+            const durationSelect = card.querySelector("select");
+            const durationValue = durationSelect ? durationSelect.value : "";
+            const priceText = durationSelect.options[durationSelect.selectedIndex].text;
+            const priceMatch = priceText.match(/\$(\d+)/);
+            const price = priceMatch ? priceMatch[1] : "0";
+  
+            const index = selectedServices.findIndex(s => s.name === serviceName);
+            if (index === -1) {
+              selectedServices.push({
+                name: serviceName,
+                description: description,
+                duration: durationValue,
+                price: price
+              });
+              this.textContent = "Remove";
+              card.classList.add("selected");
+            } else {
+              selectedServices.splice(index, 1);
+              this.textContent = "Select";
+              card.classList.remove("selected");
+            }
+            console.log("Selected Services:", selectedServices);
+          });
+        });
+  
+        // Initially show Step 1
+        showStep(1);
+      });
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const payBtn = document.getElementById("to-step-4");
+  if (payBtn) {
+    payBtn.addEventListener("click", function () {
+      const bookingData = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        date: document.getElementById("date").value,
+        time: document.getElementById("time-range").value,
+        services: selectedServices 
+      };
+
+      fetch("https://spa-backend-6h4t.onrender.com/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(bookingData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("✅ Booking submitted successfully!");
+        document.getElementById("booking-page-3").style.display = "none";
+        document.getElementById("booking-page-4").style.display = "block";
+      })
+      .catch(error => {
+        console.error("❌ Error submitting booking:", error);
+        alert("Failed to submit booking. Please try again later.");
+      });
+    });
+  }
+});
+</script>
+</body>
+</html>
